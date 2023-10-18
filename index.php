@@ -80,7 +80,32 @@ include "include.php"
             <input type="reset" value="Limpiar">
         </form>
     </div>
+    <script>
+        // Evento onchange para el select de Región
+        document.getElementById("region").onchange = function () {
+            var regionId = this.value;
+            var comunaSelect = document.getElementById("comuna");
+            comunaSelect.innerHTML = "<option value=''>Seleccione una comuna</option>";
 
+            if (regionId !== "") {
+                // Realizar una solicitud AJAX para obtener las comunas de la región seleccionada
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "get_comunas.php?region=" + regionId, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var comunas = JSON.parse(xhr.responseText);
+                        comunas.forEach(function (comuna) {
+                            var option = document.createElement("option");
+                            option.value = comuna.id_comuna;
+                            option.textContent = comuna.nombre_comuna;
+                            comunaSelect.appendChild(option);
+                        });
+                    }
+                };
+                xhr.send();
+            }
+        };
+    </script>
 
 </body>
 
