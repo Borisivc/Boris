@@ -5,7 +5,7 @@ if (isset($_GET['region'])) {
     $regionId = $_GET['region'];
 
     // Realiza una consulta SQL para obtener las comunas de la región
-    $query = "SELECT * FROM comuna WHERE id_region = ?";
+    $query = "SELECT * FROM comuna WHERE id_region = ? order by nombre_comuna";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("i", $regionId);
     $stmt->execute();
