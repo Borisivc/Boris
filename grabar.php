@@ -79,5 +79,10 @@ if ($stmt3 = $conexion->prepare($query3)) {
 // Cierra la conexión a la base de datos
 $conexion->close();
 ?>
-<br>
-<a href="javascript: history.go(-1)">Volver atrás</a>
+<br><br>
+<button type="button" onclick="goBack()">Volver atrás</button>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
