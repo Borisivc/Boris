@@ -23,20 +23,22 @@ include "include.php"
 
             <label>Email:</label><br>
             <input type="email" name="correo" placeholder="correo@gmail.com" required><br>
-            <!--
-        <label>Region:</label>&nbsp&nbsp&nbsp&nbsp&nbsp
-        <select name="region" id="region" required>
-            <option></option>
-            <?php
-            $query = "select * from region order by nombre_region";
-            $res_region = mysqli_query($conexion, $query);
-            while ($row = mysqli_fetch_object($res_region)) {
-                echo "<option value='" . $row->id_region . "'>" . $row->nombre_region . "</option>";
-            }
-            mysqli_free_result($res_region);
-            ?>
-        </select><br>
-        -->
+
+            <label>Region:</label>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <select name="region" id="region" required>
+                <option value="">Seleccione una región</option>
+                <?php
+                include "include.php"; // Incluye la conexión a la base de datos
+                
+                $query = "select * from region order by nombre_region";
+                $res_region = mysqli_query($conexion, $query);
+                while ($row = mysqli_fetch_object($res_region)) {
+                    echo "<option value='" . $row->id_region . "'>" . $row->nombre_region . "</option>";
+                }
+                mysqli_free_result($res_region);
+                ?>
+            </select><br>
+
             <label>Comuna:</label>&nbsp&nbsp&nbsp
             <select name="comuna" id="comuna" required>
                 <option></option>
