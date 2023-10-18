@@ -1,22 +1,39 @@
 <?php
-include "include.php"
-    ?>
+include "include.php";
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    <h1>Formulario de Votación</h1>
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group label {
+            margin-right: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
+    <div class="card">
+        <h1>Formulario de Votación</h1>
         <form action="grabar.php" method="post">
             <label>Nombre:</label><br>
             <input type="text" name="nombre" required><br>
 
             <label>Alias:</label><br>
-            <input type="text" name="alias" required><br>
+            <input type text name="alias" required><br>
 
             <label>RUT:</label><br>
             <input type="text" name="rut" placeholder="Rut sin puntos ni guion" required><br>
@@ -29,7 +46,7 @@ include "include.php"
                 <option value="">Seleccione una región</option>
                 <?php
                 include "include.php"; // Incluye la conexión a la base de datos
-                
+
                 $query = "select * from region order by nombre_region";
                 $res_region = mysqli_query($conexion, $query);
                 while ($row = mysqli_fetch_object($res_region)) {
@@ -42,14 +59,6 @@ include "include.php"
             <label>Comuna:</label>&nbsp&nbsp&nbsp
             <select name="comuna" id="comuna" required>
                 <option></option>
-                <?php
-                $query = "select * from comuna order by nombre_comuna";
-                $res_comuna = mysqli_query($conexion, $query);
-                while ($row = mysqli_fetch_object($res_comuna)) {
-                    echo "<option value='" . $row->id_comuna . "'>" . $row->nombre_comuna . "</option>";
-                }
-                mysqli_free_result($res_comuna);
-                ?>
             </select><br>
 
             <label>Candidato:</label>
@@ -66,16 +75,18 @@ include "include.php"
             </select><br><br>
 
             <label>Como se enteró de nosotros:</label><br>
-            <?php
-            $query = "select * from preferencia order by descripcion";
-            $res_preferencia = mysqli_query($conexion, $query);
+            <div class="checkbox-group">
+                <?php
+                $query = "select * from preferencia order by descripcion";
+                $res_preferencia = mysqli_query($conexion, $query);
 
-            while ($row = mysqli_fetch_object($res_preferencia)) {
-                echo '<input type="checkbox" name="preferencia[]" value="' . $row->id_preferencia . '"> ' . $row->descripcion . '<br>';
-            }
+                while ($row = mysqli_fetch_object($res_preferencia)) {
+                    echo '<label><input type="checkbox" name="preferencia[]" value="' . $row->id_preferencia . '"> ' . $row->descripcion . '</label>';
+                }
 
-            mysqli_free_result($res_preferencia);
-            ?>
+                mysqli_free_result($res_preferencia);
+                ?>
+            </div>
             <br>
 
             <input type="submit" class="btn btn-success" value="Enviar">
@@ -83,8 +94,8 @@ include "include.php"
         </form>
     </div>
     <script>
-        // Evento onchange para el select de Región
-        document.getElementById("region").onchange = function () {
+         // Evento onchange para el select de Región
+         document.getElementById("region").onchange = function () {
             var regionId = this.value;
             var comunaSelect = document.getElementById("comuna");
             comunaSelect.innerHTML = "<option value=''>Seleccione una comuna</option>";
@@ -107,8 +118,8 @@ include "include.php"
                 xhr.send();
             }
         };
+        // JavaScript como antes
     </script>
-
 </body>
 
 </html>
