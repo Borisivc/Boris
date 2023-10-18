@@ -1,5 +1,6 @@
 <?php
 include "include.php"; // Incluye el archivo include.php para obtener la conexión a la base de datos
+//Print_r($_POST);    
 
 // Obtén los datos de POST
 $nombre = $_POST['nombre'];
@@ -32,24 +33,45 @@ if ($stmt1 = $conexion->prepare($query1)) {
 } else {
     echo "Error en la preparación de la primera sentencia: " . $conexion->error;
 }
+$preferencia = $_POST['preferencia'][0]; // Suponiendo que solo se selecciona una preferencia
+
+// Verifica si la preferencia seleccionada existe en la tabla 'preferencia'
+$query2 = "SELECT id_preferencia FROM preferencia WHERE id_preferencia = ?";
+
+if ($stmt2 = $conexion->prepare($query2)) {
+    $stmt2->bind_param("s", $preferencia);
+    $stmt2->execute();
+    $stmt2->store_result();
+
+    if ($stmt2->num_rows > 0) {
+        // La preferencia es válida, puedes continuar con la inserción en 'registro_votacion'
+        // ... (tu código existente para la inserción en 'registro_votacion')
+    } else {
+        echo "La preferencia seleccionada no es válida.";
+    }
+
+    $stmt2->close();
+} else {
+    echo "Error en la preparación de la consulta: " . $conexion->error;
+}
 
 // Prepara la segunda consulta SQL con marcadores de posición
-$query2 = "INSERT INTO registro_votacion (id_usuario, id_candidato, id_preferencia) VALUES (?, ?, ?)";
+$query3 = "INSERT INTO registro_votacion (id_usuario, id_candidato, id_preferencia) VALUES (?, ?, ?)";
 
 // Prepara la sentencia para la segunda consulta
-if ($stmt2 = $conexion->prepare($query2)) {
+if ($stmt3 = $conexion->prepare($query3)) {
     // Vincula los parámetros
-    $stmt2->bind_param("sss", $id_usuario, $candidato, $preferencia);
+    $stmt3->bind_param("sss", $id_usuario, $candidato, $preferencia);
 
     // Ejecuta la segunda sentencia
-    if ($stmt2->execute()) {
+    if ($stmt3->execute()) {
         echo "Los datos se han registrado correctamente ";
     } else {
-        echo "Error al registrar los datos en la tabla 'registro_votacion': " . $stmt2->error;
+        echo "Error al registrar los datos en la tabla 'registro_votacion': " . $stmt3->error;
     }
 
     // Cierra la segunda sentencia
-    $stmt2->close();
+    $stmt3->close();
 } else {
     echo "Error en la preparación de la segunda sentencia: " . $conexion->error;
 }

@@ -10,7 +10,7 @@ include "include.php"
 </head>
 
 <body>
-    <div style="display:inline">
+    <div>
         <form action="grabar.php" method="post">
             <label>Nombre:</label><br>
             <input type="text" name="nombre" required><br>
@@ -69,7 +69,7 @@ include "include.php"
             $res_preferencia = mysqli_query($conexion, $query);
 
             while ($row = mysqli_fetch_object($res_preferencia)) {
-                echo '<input type="radio" name="preferencia" value="' . $row->id_preferencia . '"> ' . $row->descripcion . '<br>';
+                echo '<input type="checkbox" name="preferencia[]" value="' . $row->id_preferencia . '"> ' . $row->descripcion . '<br>';
             }
 
             mysqli_free_result($res_preferencia);
