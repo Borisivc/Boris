@@ -1,29 +1,14 @@
 <?php
 include "include.php";
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <style>
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .checkbox-group label {
-            margin-right: 20px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
 </head>
+
 
 <body>
     <div class="card">
@@ -89,8 +74,11 @@ include "include.php";
             </div>
             <br>
 
+
             <input type="submit" class="btn btn-success" value="Enviar">
             <input type="reset" value="Limpiar">
+
+            <div id="mensaje" style="display: none;"></div>
         </form>
     </div>
     <script>
@@ -129,6 +117,7 @@ include "include.php";
             }
         });
     </script>
+
 
 </body>
 
