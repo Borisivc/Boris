@@ -107,7 +107,7 @@ include "include.php";
             }
         };
     </script>
-    <script>
+    <script>        //validacion de alias
         document.getElementById("alias").addEventListener("blur", function () {
             var alias = this.value;
             var regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,}$/; // Expresión regular para validar al menos 5 caracteres alfanuméricos con letras y números

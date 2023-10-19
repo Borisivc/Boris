@@ -82,6 +82,7 @@ echo "GRACIAS POR REALIZAR SU VOTACIÓN ";
 // Cierra la conexión a la base de datos
 $conexion->close();
 ?>
+
 <br><br><a href="index.php"><button type="button">Volver a la página de inicio</button></a>
 
 
