@@ -33,7 +33,7 @@ include "include.php";
             <input type="text" name="nombre" required><br>
 
             <label>Alias:</label><br>
-            <input type text name="alias" required><br>
+            <input type="text" name="alias" id="alias" required><br>
 
             <label>RUT:</label><br>
             <input type="text" name="rut" placeholder="Rut sin puntos ni guion" required><br>
@@ -46,7 +46,7 @@ include "include.php";
                 <option value="">Seleccione una región</option>
                 <?php
                 include "include.php"; // Incluye la conexión a la base de datos
-
+                
                 $query = "select * from region order by nombre_region";
                 $res_region = mysqli_query($conexion, $query);
                 while ($row = mysqli_fetch_object($res_region)) {
@@ -94,8 +94,8 @@ include "include.php";
         </form>
     </div>
     <script>
-         // Evento onchange para el select de Región
-         document.getElementById("region").onchange = function () {
+        // Evento onchange para el select de Región
+        document.getElementById("region").onchange = function () {
             var regionId = this.value;
             var comunaSelect = document.getElementById("comuna");
             comunaSelect.innerHTML = "<option value=''>Seleccione una comuna</option>";
@@ -118,8 +118,18 @@ include "include.php";
                 xhr.send();
             }
         };
-        // JavaScript como antes
     </script>
+    <script>
+        document.getElementById("alias").addEventListener("blur", function () {
+            var alias = this.value;
+            var regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,}$/; // Expresión regular para validar al menos 5 caracteres alfanuméricos con letras y números
+            if (!regex.test(alias)) {
+                alert("El alias debe contener al menos 5 caracteres con letras y números.");
+                this.value = ''; // Limpiar el campo si no cumple con la validación
+            }
+        });
+    </script>
+
 </body>
 
 </html>
