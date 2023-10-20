@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2023 a las 02:00:54
+-- Tiempo de generación: 20-10-2023 a las 02:53:55
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -405,7 +405,7 @@ INSERT INTO `region` (`id_region`, `nombre_region`) VALUES
 --
 
 CREATE TABLE `registro_votacion` (
-  `id_voto` int(10) NOT NULL,
+  `id` int(10) NOT NULL,
   `id_usuario` int(10) NOT NULL,
   `id_candidato` int(10) NOT NULL,
   `id_preferencia` int(10) NOT NULL
@@ -421,7 +421,7 @@ CREATE TABLE `votante` (
   `id_usuario` int(10) NOT NULL,
   `nombre_usuario` varchar(40) NOT NULL,
   `alias` varchar(20) NOT NULL,
-  `rut` varchar(9) NOT NULL,
+  `rut` varchar(10) NOT NULL,
   `email` varchar(40) NOT NULL,
   `id_comuna` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -459,7 +459,7 @@ ALTER TABLE `region`
 -- Indices de la tabla `registro_votacion`
 --
 ALTER TABLE `registro_votacion`
-  ADD PRIMARY KEY (`id_voto`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_candidato` (`id_candidato`),
   ADD KEY `id_preferencia` (`id_preferencia`);
@@ -503,7 +503,7 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT de la tabla `registro_votacion`
 --
 ALTER TABLE `registro_votacion`
-  MODIFY `id_voto` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `votante`
@@ -533,7 +533,7 @@ ALTER TABLE `registro_votacion`
 -- Filtros para la tabla `votante`
 --
 ALTER TABLE `votante`
-  ADD CONSTRAINT `votante_ibfk_1` FOREIGN KEY (`id_comuna`) REFERENCES `comuna` (`id_region`);
+  ADD CONSTRAINT `votante_ibfk_1` FOREIGN KEY (`id_comuna`) REFERENCES `comuna` (`id_comuna`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
