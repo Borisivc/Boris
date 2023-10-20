@@ -7,13 +7,14 @@ include "include.php";
 
 <head>
     <link rel="stylesheet" type="text/css" href="estilos.css">
+
 </head>
 
 
 <body>
     <div class="card">
         <h1>Formulario de Votación</h1>
-        <form action="grabar.php" method="post">
+        <form action="grabar.php" method="post" id="formulario">
             <label>Nombre:</label><br>
             <input type="text" name="nombre" required><br>
 
@@ -21,7 +22,7 @@ include "include.php";
             <input type="text" name="alias" id="alias" required><br>
 
             <label>RUT:</label><br>
-            <input type="text" name="rut" placeholder="Rut sin puntos ni guion" required><br>
+            <input type="text" name="rut" placeholder="Rut sin puntos, con guíon" id="rut" required><br>
 
             <label>Email:</label><br>
             <input type="email" name="correo" placeholder="correo@gmail.com" required><br>
@@ -81,6 +82,18 @@ include "include.php";
             <div id="mensaje" style="display: none;"></div>
         </form>
     </div>
+    <script>
+        document.getElementById("formulario").addEventListener("submit", function (event) {
+            var rut = document.getElementsByName("rut")[0].value; // Obtén el valor del campo "rut"
+            var mensaje = validarut(rut);
+
+            if (mensaje !== "") {
+                alert(mensaje);
+                event.preventDefault(); // Evita el envío del formulario si el RUT no es válido
+            }
+        });
+    </script>
+
     <script>
         // Evento onchange para el select de Región
         document.getElementById("region").onchange = function () {
